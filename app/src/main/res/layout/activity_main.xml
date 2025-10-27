@@ -84,22 +84,20 @@
                 android:layout_height="wrap_content">
             </Button>
 
+<!--            <Button-->
+<!--                android:id="@+id/btn_football"-->
+<!--                android:text="EPL schedule"-->
+<!--                android:textSize="12sp"-->
+<!--                android:padding="6dp"-->
+<!--                android:layout_margin="6dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
+<!--            </Button>-->
+
 
 
         </LinearLayout>
     </HorizontalScrollView>
-    <androidx.cardview.widget.CardView
-        android:layout_margin="14dp"
-        app:cardElevation="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <SearchView
-            android:id="@+id/search_view"
-            app:iconifiedByDefault="false"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-        </SearchView>
-    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcView"
