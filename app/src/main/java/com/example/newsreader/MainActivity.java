@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
         btn_football = findViewById(R.id.btn_football);
         btn_football.setOnClickListener(this);
     }
-
     @Override
     public void OnNewsClicked(NewsHeadlines headlines) {
         startActivity(new Intent(MainActivity.this, DetailsActivity.class)
