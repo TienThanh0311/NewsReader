@@ -86,7 +86,7 @@
 
             <Button
                 android:id="@+id/btn_football"
-                android:text="Football schedule"
+                android:text="EPL schedule"
                 android:textSize="12sp"
                 android:padding="6dp"
                 android:layout_margin="6dp"
