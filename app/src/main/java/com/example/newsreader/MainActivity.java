@@ -2,6 +2,7 @@ package com.example.newsreader;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,26 +16,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newsreader.Models.Match;
 import com.example.newsreader.Models.NewsApiResponse;
 import com.example.newsreader.Models.NewsHeadlines;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SelectListener, View.OnClickListener {
 
     RecyclerView recyclerView;
     CustomerAdapter adapter;
-
     ProgressDialog dialog;
 
-    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7;
-
-
-
-
-
+    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_football;
 
 
     private final OnFetchDataListener<NewsApiResponse> listener = new OnFetchDataListener<NewsApiResponse>() {
@@ -98,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
         btn_6.setOnClickListener(this);
         btn_7 = findViewById(R.id.btn_7);
         btn_7.setOnClickListener(this);
+        btn_football = findViewById(R.id.btn_football);
+        btn_football.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.btn_football) {
+            startActivity(new Intent(MainActivity.this, FootballActivity.class));
+            return;
+        }
         Button button = (Button) v;
         String category = button.getText().toString().toLowerCase();
         dialog.setTitle("Loading " + category + " news...");
