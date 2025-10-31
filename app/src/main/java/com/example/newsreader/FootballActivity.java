@@ -47,6 +47,8 @@ public class FootballActivity extends AppCompatActivity {
         Cursor cursor = db.getAllMatches();
         if (cursor.moveToFirst()) {
             do {
+                int idIndex = cursor.getColumnIndexOrThrow(DBMatchContext.COL_MATCH_ID);
+                int id = cursor.getInt(idIndex);
                 String date = cursor.getString(cursor.getColumnIndexOrThrow(DBMatchContext.COL_DATE));
                 String homeTeam = cursor.getString(cursor.getColumnIndexOrThrow(DBMatchContext.COL_HOME_TEAM));
                 String awayTeam = cursor.getString(cursor.getColumnIndexOrThrow(DBMatchContext.COL_AWAY_TEAM));
@@ -63,12 +65,14 @@ public class FootballActivity extends AppCompatActivity {
                 int imgHome = cursor.getInt(cursor.getColumnIndexOrThrow(DBMatchContext.COL_IMG_HOME));
                 int imgAway = cursor.getInt(cursor.getColumnIndexOrThrow(DBMatchContext.COL_IMG_AWAY));
 
-                Match match = new Match( date, homeTeam, awayTeam, time, winHome, draw, winAway, oddHome, oddDraw, oddAway, imgHome, imgAway);
+                Match match = new Match( id,date, homeTeam, awayTeam, time, winHome, draw, winAway, oddHome, oddDraw, oddAway, imgHome, imgAway);
+
                 matches.add(match);
 
             } while (cursor.moveToNext());
         }
         cursor.close();
+
         MatchAdapter adapter = new MatchAdapter(matches, this);
         rcvMatch.setLayoutManager(new LinearLayoutManager(this));
         rcvMatch.setAdapter(adapter);

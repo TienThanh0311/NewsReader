@@ -110,13 +110,13 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_football) {
-            startActivity(new Intent(MainActivity.this, FootballActivity.class));
-        }
         Button button = (Button) v;
         String category = button.getText().toString().toLowerCase();
         dialog.setTitle("Loading " + category + " news...");
         RequestManger manger = new RequestManger(this);
         manger.getNewsHeadlines(listener, category, null);
+        if (v.getId() == R.id.btn_football) {
+            startActivity(new Intent(MainActivity.this, FootballActivity.class));
+        }
     }
 }

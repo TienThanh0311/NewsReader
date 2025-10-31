@@ -1,6 +1,7 @@
 package com.example.newsreader.Models;
 
 public class Match {
+    private int id;
     private String date;
     private String homeTeam;
     private String awayTeam;
@@ -15,7 +16,8 @@ public class Match {
     private int imgAway;
 
 
-    public Match(String date, String homeTeam, String awayTeam, String time, int winHome, int draw, int winAway, double oddHome, double oddDraw, double oddAway,int imgHome, int imgAway) {
+    public Match(int id, String date, String homeTeam, String awayTeam, String time, int winHome, int draw, int winAway, double oddHome, double oddDraw, double oddAway,int imgHome, int imgAway) {
+        this.id = id;
         this.date = date;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -28,6 +30,12 @@ public class Match {
         this.oddAway = oddAway;
         this.imgHome = imgHome;
         this.imgAway = imgAway;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
     public int getImgHome() {
         return imgHome;

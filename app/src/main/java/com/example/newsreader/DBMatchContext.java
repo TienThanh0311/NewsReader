@@ -8,9 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DBMatchContext extends SQLiteOpenHelper {
-    private static final String DB_NAME = "Schedule.db";
+    private static final String DB_NAME = "EPLSchedule.db";
     private static final int DB_VERSION = 1;
-    private static final String TABLE_NAME = "matches";
+    private static final String TABLE_NAME = "football_matches";
 
     public static final String COL_MATCH_ID = "id";
     public static final String COL_DATE = "date";
@@ -36,6 +36,7 @@ public class DBMatchContext extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + "("
+                + COL_MATCH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_DATE + " TEXT,"
                 + COL_HOME_TEAM + " TEXT,"
                 + COL_AWAY_TEAM + " TEXT,"
@@ -174,6 +175,10 @@ public class DBMatchContext extends SQLiteOpenHelper {
         });
     }
 
+    public Cursor getMatchById(int id) {
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_MATCH_ID + " = ?";
+        return getReadableDatabase().rawQuery(sql, new String[]{String.valueOf(id)});
+    }
     public Cursor getAllMatches() {
         String sql = "SELECT * FROM " + TABLE_NAME;
         return getReadableDatabase().rawQuery(sql, null);
