@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bet_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/police_flash">
+
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="🚨 POLICE 🚨 \nĐiều 321, Bộ luật Hình sự số 100/2015/QH13, sửa đổi bởi Luật số 12/2017/QH14 quy định về “Tội đánh bạc”, người tham gia cá độ bóng đá có thể bị phạt tiền từ 20 - 100 triệu đồng, phạt cải tạo không giam giữ đến 3 năm hoặc phạt tù từ 6 tháng đến 3 năm."
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="24dp"/>
+</FrameLayout>

@@ -59,6 +59,10 @@ public class MatchDetail extends AppCompatActivity {
     private void bindingAction() {
         onReceivedIntent();
         btnLink.setOnClickListener(this::onBtnLinkClick);
+        Button btnBet = findViewById(R.id.btnBet);
+        btnBet.setOnClickListener(v ->
+                startActivity(new Intent(MatchDetail.this, BetActivity.class))
+        );
     }
 
     private void onBtnLinkClick(View view) {

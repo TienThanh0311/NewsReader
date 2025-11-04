@@ -32,6 +32,8 @@
             android:exported="false" />
         <activity android:name=".MatchDetail"
             android:exported="false" />
+        <activity android:name=".BetActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
