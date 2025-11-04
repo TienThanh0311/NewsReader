@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable; // <<< THÊM MỚI: Cần cho onActivityResult
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
@@ -26,34 +26,30 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
 
     RecyclerView recyclerView;
     CustomerAdapter adapter;
-
     ProgressDialog dialog;
-
     Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_football;
-
-
-
-
-
-
+    private static final int FOOTBALL_REQUEST_CODE = 101;
 
     private final OnFetchDataListener<NewsApiResponse> listener = new OnFetchDataListener<NewsApiResponse>() {
 
         @Override
         public void onFetchData(List<NewsHeadlines> list, String message) {
-
+            // <<< THÊM MỚI: Thêm lại kiểm tra null để tránh crash
+            if (list == null || list.isEmpty()) {
+                Toast.makeText(MainActivity.this, "No news found", Toast.LENGTH_SHORT).show();
+            } else {
                 showNews(list);
-
+            }
             dialog.dismiss();
         }
 
         @Override
         public void onError(String message) {
-            Toast.makeText(MainActivity.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "An Error Occurred: " + message, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         }
 
-        };
+    };
 
     private void showNews(List<NewsHeadlines> list) {
         recyclerView = findViewById(R.id.rcView);
@@ -73,7 +69,9 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         bindingView();
+
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading News...");
         dialog.show();
@@ -99,22 +97,46 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
         btn_football = findViewById(R.id.btn_football);
         btn_football.setOnClickListener(this);
     }
+
     @Override
     public void OnNewsClicked(NewsHeadlines headlines) {
         startActivity(new Intent(MainActivity.this, DetailsActivity.class)
                 .putExtra("data", headlines));
-
     }
+
 
     @Override
     public void onClick(View v) {
-        Button button = (Button) v;
-        String category = button.getText().toString().toLowerCase();
-        dialog.setTitle("Loading " + category + " news...");
-        RequestManger manger = new RequestManger(this);
-        manger.getNewsHeadlines(listener, category, null);
+
         if (v.getId() == R.id.btn_football) {
-            startActivity(new Intent(MainActivity.this, FootballActivity.class));
+            Intent intent = new Intent(MainActivity.this, FootballActivity.class);
+            startActivityForResult(intent, FOOTBALL_REQUEST_CODE);
+        }
+        else {
+
+            Button button = (Button) v;
+            String category = button.getText().toString().toLowerCase();
+
+            dialog.setTitle("Loading " + category + " news...");
+            dialog.show();
+
+            RequestManger manger = new RequestManger(this);
+            manger.getNewsHeadlines(listener, category, null);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == FOOTBALL_REQUEST_CODE) {
+
+            dialog.setTitle("Loading general news...");
+            dialog.show();
+            RequestManger manger = new RequestManger(this);
+            manger.getNewsHeadlines(listener, "general", null);
         }
     }
 }
