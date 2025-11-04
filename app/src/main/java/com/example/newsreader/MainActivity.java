@@ -41,11 +41,9 @@ public class MainActivity extends AppCompatActivity implements SelectListener, V
 
         @Override
         public void onFetchData(List<NewsHeadlines> list, String message) {
-            if (list == null || list.isEmpty()) {
-                Toast.makeText(MainActivity.this, "No news found", Toast.LENGTH_SHORT).show();
-            }else {
+
                 showNews(list);
-            }
+
             dialog.dismiss();
         }
 
